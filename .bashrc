@@ -9,7 +9,13 @@ case $- in
 esac
 
 
-export EDITOR=emacs
+EDITOR=emacs
+
+WORKON_HOME=~/.virtualenvs
+
+GOPATH=~/.go
+
+PATH=$PATH:~/.go/bin
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -19,7 +25,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # flush prompt to history for every command
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+PROMPT_COMMAND="history -a"
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=
@@ -120,3 +126,37 @@ fi
 [ -r /home/jens/.byobu/prompt ] && . /home/jens/.byobu/prompt   #byobu-prompt#
 
 alias tmux='tmux -2'
+
+
+# Connect with Selenium Docker nodes
+
+function selenium-vnc {
+  xvncviewer $(sudo docker port $1  | cut -d' ' -f3)
+}
+
+
+# function haufe-toggle-vpn {
+#     if [ "$(cat ~/.haufe-vpn)" == "1" ]; then
+# 	sudo -s 'cat > /etc/resolv.conf <<EOF
+# 8.8.8.8
+# EOF'
+# 	echo "0" > ~/.haufe-vpn
+#     else
+# 	sudo -s 'cat > /etc/resolv.conf <<EOF
+# nameserver 10.12.1.147
+# nameserver 10.12.1.148
+# nameserver 8.8.8.8
+# EOF'
+# 	echo "1" > ~/.haufe-vpn
+#     fi
+# }
+
+# Source virtualenvwrapper commands
+. /usr/local/bin/virtualenvwrapper.sh
+
+# Source aws credentials
+. ~/.aws-credentials
+
+export PATH=$PATH:/home/jens/bin
+
+source '/home/jens/lib/azure-cli/az.completion'
