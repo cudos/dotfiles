@@ -154,9 +154,6 @@ function selenium-vnc {
 # Source virtualenvwrapper commands
 . /usr/local/bin/virtualenvwrapper.sh
 
-# Source aws credentials
-. ~/.aws-credentials
-
 export PATH=$PATH:/home/jens/bin
 
 source '/home/jens/lib/azure-cli/az.completion'
