@@ -1,6 +1,4 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
@@ -9,7 +7,8 @@ case $- in
 esac
 
 
-EDITOR=emacs
+export VISUAL=emacs
+export EDITOR=emacs
 
 WORKON_HOME=~/.virtualenvs
 
@@ -127,33 +126,17 @@ fi
 
 alias tmux='tmux -2'
 
-
 # Connect with Selenium Docker nodes
-
 function selenium-vnc {
-  xvncviewer $(sudo docker port $1  | cut -d' ' -f3)
+    xvncviewer $(sudo docker port $1  | cut -d' ' -f3)
 }
 
-
-# function haufe-toggle-vpn {
-#     if [ "$(cat ~/.haufe-vpn)" == "1" ]; then
-# 	sudo -s 'cat > /etc/resolv.conf <<EOF
-# 8.8.8.8
-# EOF'
-# 	echo "0" > ~/.haufe-vpn
-#     else
-# 	sudo -s 'cat > /etc/resolv.conf <<EOF
-# nameserver 10.12.1.147
-# nameserver 10.12.1.148
-# nameserver 8.8.8.8
-# EOF'
-# 	echo "1" > ~/.haufe-vpn
-#     fi
-# }
-
 # Source virtualenvwrapper commands
-. /usr/local/bin/virtualenvwrapper.sh
+. /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 export PATH=$PATH:/home/jens/bin
 
-source '/home/jens/lib/azure-cli/az.completion'
+# List only symbolic links in current directory
+function list-symbolic-links {
+    find . -maxdepth 1 -type l -ls
+}
