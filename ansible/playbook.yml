@@ -1,0 +1,54 @@
+---
+- hosts: localhost
+  tasks:
+  - name: update apt cache
+    apt:
+      update_cache: yes
+    become: true
+  - name: install emacs25
+    apt:
+      name: emacs25
+    become: true
+#  - name: clone git repository cudos/dotfiles
+#    git:
+#      repo: git@github.com:cudos/dotfiles.git
+#      version: master
+#      dest: ~/git/cudos/dotfiles
+  - name: clone git repository cudos/pe-clojure
+    git:
+      repo: git@github.com:cudos/pe-clojure.git
+      version: master
+      dest: ~/git/cudos/pe-clojure
+  - name: clone git repository cudos/readme
+    git:
+      repo: git@github.com:cudos/readme.git
+      version: master
+      dest: ~/git/cudos/readme
+  - name: clone git repository cudos/emacs.d
+    git:
+      repo: git@github.com:cudos/emacs.d.git
+      version: master
+      dest: ~/git/cudos/emacs.d
+  - name: clone git repository cudos/trender
+    git:
+      repo: git@github.com:cudos/trender.git
+      version: master
+      dest: ~/git/cudos/trender
+  - name: remove eventually existing ~/.emacs.d
+    file:
+      path: ~/.emacs.d
+      state: absent
+  - name: set symbolic link ~/.emacs.d
+    file:
+      src: ~/git/cudos/emacs.d
+      dest: ~/.emacs.d
+      state: link
+  - name: remove eventually existing ~/.bashrc
+    file:
+      path: ~/.bashrc
+      state: absent
+  - name: set symbolic link ~/.bashrc
+    file:
+      src: ~/git/cudos/dotfiles/.bashrc
+      dest: ~/.bashrc
+      state: link
