@@ -9,6 +9,26 @@
     apt:
       name: emacs25
     become: true
+  - name: install virtualenvwrapper
+    apt:
+      name: virtualenvwrapper
+    become: true
+  - name: install ack
+    apt:
+      name: ack
+    become: true
+  - name: install terminator
+    apt:
+      name: terminator
+    become: true
+  - name: install byobu
+    apt:
+      name: byobu
+    become: true
+  - name: install dstat
+    apt:
+      name: dstat
+    become: true
 #  - name: clone git repository cudos/dotfiles
 #    git:
 #      repo: git@github.com:cudos/dotfiles.git
@@ -51,4 +71,13 @@
     file:
       src: ~/git/cudos/dotfiles/.bashrc
       dest: ~/.bashrc
+      state: link
+  - name: remove eventually existing ~/.config/terminator/config
+    file:
+      path: ~/.config/terminator/config
+      state: absent
+  - name: set symbolic link ~/.config/terminator/config
+    file:
+      src: ~/git/cudos/dotfiles/terminator-config
+      dest: ~/.config/terminator/config
       state: link
