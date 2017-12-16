@@ -9,6 +9,10 @@
     apt:
       name: emacs25
     become: true
+  - name: install clojure
+    apt:
+      name: clojure
+    become: true
   - name: install virtualenvwrapper
     apt:
       name: virtualenvwrapper
@@ -54,6 +58,16 @@
       repo: git@github.com:cudos/trender.git
       version: master
       dest: ~/git/cudos/trender
+  - name: clone git repository clojure/clojure
+    git:
+      repo: https://github.com/clojure/clojure.git
+      version: master
+      dest: ~/git/clojure
+  - name: clone git repository technomancy/leiningen
+    git:
+      repo: https://github.com/technomancy/leiningen.git
+      version: master
+      dest: ~/git/leiningen
   - name: remove eventually existing ~/.emacs.d
     file:
       path: ~/.emacs.d
