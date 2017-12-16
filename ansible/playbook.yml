@@ -72,6 +72,16 @@
     file:
       path: ~/.emacs.d
       state: absent
+  - name: set symbolic link ~/git/cudos/emacs.d/bookmarks
+    file:
+      src: ~/Dropbox/emacs-bookmarks
+      dest: ~/git/cudos/emacs.d/bookmarks
+      state: link
+  - name: set symbolic link ~/git/cudos/emacs.d/projectile-bookmarks.eld
+    file:
+      src: ~/Dropbox/emacs-projectile-bookmarks.eld
+      dest: ~/git/cudos/emacs.d/projectile-bookmarks.eld
+      state: link
   - name: set symbolic link ~/.emacs.d
     file:
       src: ~/git/cudos/emacs.d
