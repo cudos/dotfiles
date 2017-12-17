@@ -87,6 +87,11 @@
       src: ~/git/cudos/emacs.d
       dest: ~/.emacs.d
       state: link
+  - name: set symbolic link ~/org
+    file:
+      src: ~/Dropbox/org
+      dest: ~/org
+      state: link
   - name: remove eventually existing ~/.bashrc
     file:
       path: ~/.bashrc
