@@ -1,6 +1,10 @@
 ---
 - hosts: localhost
   tasks:
+
+########################################
+# Install some packages I do like
+########################################
   - name: update apt cache
     apt:
       update_cache: yes
@@ -33,6 +37,10 @@
     apt:
       name: dstat
     become: true
+
+########################################
+# Just a bunch of git repositories
+########################################
 #  - name: clone git repository cudos/dotfiles
 #    git:
 #      repo: git@github.com:cudos/dotfiles.git
@@ -68,6 +76,10 @@
       repo: https://github.com/technomancy/leiningen.git
       version: stable
       dest: ~/git/leiningen
+
+########################################
+# Just a bunch of symbolic links
+########################################
   - name: remove eventually existing ~/.emacs.d
     file:
       path: ~/.emacs.d
@@ -123,3 +135,19 @@
       src: ~/Dropbox/Briefe
       dest: ~/Brriefe
       state: link
+
+########################################
+# Install fzf
+########################################
+  - name: clone git repository junegunn/fzf
+    git:
+      repo: https://github.com/junegunn/fzf.git
+      version: master
+      dest: ~/git/fzf
+  - name: build fzf
+    expect:
+      command: /home/jens/git/fzf/install
+      responses:
+        'Do you want to enable fuzzy auto-completion\? \(\[y\]/n\)': "y"
+        'Do you want to enable key bindings\? \(\[y\]/n\)': "y"
+        'Do you want to update your shell configuration files\? \(\[y\]/n\)': "y"

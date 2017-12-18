@@ -140,3 +140,5 @@ export PATH=$PATH:/home/jens/bin
 function list-symbolic-links {
     find . -maxdepth 1 -type l -ls
 }
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
