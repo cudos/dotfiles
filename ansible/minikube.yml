@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  tasks:
+
+########################################
+# Install latest release of kubectl
+########################################
+  - name: download latest release of kubectl
+    shell: curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    args:
+      chdir: ~/bin
+      creates: ~/bin/kubectl
+  - name: make kubectl binary executable
+    file:
+      path: ~/bin/kubectl
+      mode: 0755
+  - name: download minikube
+    shell: curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-linux-amd64
+    args:
+      chdir: ~/bin
+      creates: ~/bin/minikube
+  - name: make minikube binary executable
+    file:
+      path: ~/bin/minikube
+      mode: 0755
+  - name: start minikube
+    shell: ~/bin/minikube start
