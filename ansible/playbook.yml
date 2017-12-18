@@ -13,6 +13,10 @@
     apt:
       name: emacs25
     become: true
+  - name: install dvipng
+    apt:
+      name: dvipng
+    become: true
   - name: install clojure
     apt:
       name: clojure
