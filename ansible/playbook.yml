@@ -118,3 +118,8 @@
     shell: ~/bin/lein
     args:
       creates: ~/.lein
+  - name: set symbolic link ~/Briefe
+    file:
+      src: ~/Dropbox/Briefe
+      dest: ~/Brriefe
+      state: link
