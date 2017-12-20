@@ -41,6 +41,10 @@
     apt:
       name: dstat
     become: true
+  - name: install ipython
+    apt:
+      name: ipython
+    become: true
 
 ########################################
 # Just a bunch of git repositories
