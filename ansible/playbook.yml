@@ -80,7 +80,11 @@
       repo: https://github.com/technomancy/leiningen.git
       version: stable
       dest: ~/git/leiningen
-
+  - name: clone git repository quantopian/zipline
+    git:
+      repo: https://github.com/quantopian/zipline.git
+      version: master
+      dest: ~/git/zipline
 ########################################
 # Just a bunch of symbolic links
 ########################################
