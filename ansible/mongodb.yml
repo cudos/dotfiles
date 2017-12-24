@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+########################################
+# Install MongoDB Community Edition
+#
+# Install instructions were taken from:
+# https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
+#
+########################################
+  tasks:
+  - name: import public apt key
+    shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+    become: true
+  - name: create apt sources file
+    shell: echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.6 main" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+    become: true
+  - name: update apt cache
+    apt:
+      update_cache: yes
+    become: true
+  - name: install mongodb-org
+    apt:
+      name: mongodb-org
+    become: true
+  - service:
+      name: mongod
+      state: started
+    become: true
+  - debug:
+      msg: "Run 'cat /var/log/mongodb/mongod.log' to check if mongod is running"
+
