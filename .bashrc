@@ -7,8 +7,12 @@ case $- in
 esac
 
 
+export TERM=xterm
 export VISUAL=emacs
 export EDITOR=emacs
+
+export BYOBU_PREFIX=/usr
+export BYOBU_CONFIG_DIR=~/.byobu
 
 WORKON_HOME=~/.virtualenvs
 
@@ -23,8 +27,14 @@ HISTCONTROL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# flush prompt to history for every command
-PROMPT_COMMAND="history -a"
+function settitle {
+    printf "\033k$1\033\\"
+}
+
+# flush prompt to history and set window title
+PROMPT_COMMAND='$(history -a)'
+
+#PS1='$HOST:$PWD$(settitle $HOST:$PWD)$ '
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=
@@ -124,7 +134,7 @@ if ! shopt -oq posix; then
 fi
 [ -r /home/jens/.byobu/prompt ] && . /home/jens/.byobu/prompt   #byobu-prompt#
 
-alias tmux='tmux -2'
+#alias tmux='tmux -2'
 
 # Connect with Selenium Docker nodes
 function selenium-vnc {
@@ -142,3 +152,6 @@ function list-symbolic-links {
 }
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
+. ~/.bashrc.otto

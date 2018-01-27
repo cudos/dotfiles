@@ -125,15 +125,24 @@
       src: ~/git/cudos/dotfiles/.bashrc
       dest: ~/.bashrc
       state: link
+  - name: create directory ~/.config/terminator
+    file:
+      path: ~/.config/terminator
+      state: directory
   - name: remove eventually existing ~/.config/terminator/config
     file:
       path: ~/.config/terminator/config
       state: absent
+      force: yes
   - name: set symbolic link ~/.config/terminator/config
     file:
       src: ~/git/cudos/dotfiles/terminator-config
       dest: ~/.config/terminator/config
       state: link
+  - name: create directory ~/bin
+    file:
+      path: ~/bin
+      state: directory
   - name: copy lein script
     shell: cp ~/git/leiningen/bin/lein ~/bin/
     args:
