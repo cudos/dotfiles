@@ -6,6 +6,8 @@ case $- in
       *) return;;
 esac
 
+# Cleanup my history all the time
+tac $HISTFILE | awk '!x[$0]++' | tac | sponge $HISTFILE
 
 export TERM=xterm
 export VISUAL=emacs
@@ -148,12 +150,6 @@ function list-symbolic-links {
 
 function stock-diff-in-percent {
     python -c "print str(round(($2 - $1) / $1 * 100.0, 2)) + '%'"
-}
-
-
-function cleanup-bash-history() {
-    cat ~/.bash_history  | nl | sort -k 2 | uniq -f 1 | sort -n | cut -f 2 > /tmp/bash_history
-    mv /tmp/bash_history ~/.bash_history
 }
 
 
