@@ -10,31 +10,23 @@ esac
 export TERM=xterm
 export VISUAL=emacs
 export EDITOR=emacs
-
+export GOPATH=~/.go
 export BYOBU_PREFIX=/usr
 export BYOBU_CONFIG_DIR=~/.byobu
+export PATH=$PATH:~/.go/bin:/home/jens/bin
 
 WORKON_HOME=~/.virtualenvs
 
-GOPATH=~/.go
-
-PATH=$PATH:~/.go/bin
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-function settitle {
-    printf "\033k$1\033\\"
-}
-
 # flush prompt to history and set window title
 PROMPT_COMMAND='$(history -a)'
-
-#PS1='$HOST:$PWD$(settitle $HOST:$PWD)$ '
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=
@@ -144,7 +136,7 @@ function selenium-vnc {
 # Source virtualenvwrapper commands
 . /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
-export PATH=$PATH:/home/jens/bin
+
 
 # List only symbolic links in current directory
 function list-symbolic-links {
@@ -152,6 +144,17 @@ function list-symbolic-links {
 }
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
+function stock-diff-in-percent {
+    python -c "print str(round(($2 - $1) / $1 * 100.0, 2)) + '%'"
+}
+
+
+function cleanup-bash-history() {
+    cat ~/.bash_history  | nl | sort -k 2 | uniq -f 1 | sort -n | cut -f 2 > /tmp/bash_history
+    mv /tmp/bash_history ~/.bash_history
+}
 
 
 . ~/.bashrc.otto
